@@ -1,8 +1,7 @@
 import requests
-import os
 import argparse
-from dotenv import load_dotenv
 from urllib.parse import urlparse
+from environs import Env
 
 
 def shorten_link(token, url):
@@ -43,8 +42,9 @@ def create_parser():
 
 
 if __name__ == "__main__":
-    load_dotenv()
-    bitly_token = os.getenv('BITLY_TOKEN')
+    env = Env()
+    env.read_env()
+    bitly_token = env('BITLY_TOKEN')
     parser = create_parser()
     url = parser.parse_args().url
     try:
